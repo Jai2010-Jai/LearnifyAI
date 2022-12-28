@@ -1,0 +1,155 @@
+import pygame
+from sys import exit
+from random import randint
+from pygame import mixer
+
+def display_score():
+    current_time = int(pygame.time.get_ticks() / 1000) - start_time
+    score_surf = test_font.render(f'{current_time}', False, (64, 64, 64))
+    score_rect = score_surf.get_rect(center=(400, 50))
+    screen.blit(score_surf, score_rect)
+    return current_time
+
+
+y = 3
+
+
+pygame.init()
+screen = pygame.display.set_mode((800, 400))
+pygame.display.set_caption('Runner')
+clock = pygame.time.Clock()
+test_font = pygame.font.Font('Pixeltype.ttf', 50)
+game_active = False
+start_time = 0
+score = 0
+
+sky_surf = pygame.image.load('Skys.png').convert()
+ground_surf = pygame.image.load('ground.png').convert()
+
+# Obstacles
+snail_surf = pygame.image.load('snail1.png').convert_alpha()
+snail_rect = snail_surf.get_rect(bottomright=(600, 300))
+snail_surf_an = pygame.image.load('snail1.png').convert_alpha()
+snail_rect_an = snail_surf.get_rect(bottomright=(450, 300))
+fly_surf = pygame.image.load('Fly1.png').convert_alpha()
+fly_rect = fly_surf.get_rect(bottomright=(1500, 150))
+
+obstacle_rect_list = []
+
+
+player_surf = pygame.image.load('player_walk_1.png').convert_alpha()
+player_rect = player_surf.get_rect(midbottom=(50, 300))
+player_gravity = 0
+
+# Intro Screen
+
+player_stand = pygame.image.load('player_stand.png').convert_alpha()
+player_stand_scaled = pygame.transform.rotozoom(player_stand,0,2)
+player_stand_rect = player_stand_scaled.get_rect(center = (400,200))
+game_name = test_font.render('Pixel Runner', False, (111,196,169))
+game_name_rect = game_name.get_rect(center = (400,80))
+game_how = test_font.render('Press ESC to Start the Game', False, (111,196,169))
+game_how_rect = game_how.get_rect(center = (400,350))
+
+
+#obstacle_timer = pygame.USEREVENT + 1
+#pygame.time.set_timer(obstacle_timer,1400)
+mixer.music.load('music.wav')
+mixer.music.play(-1)
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            exit()
+
+        if game_active:
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if player_rect.collidepoint(event.pos) and player_rect.bottom >= 300:
+                    player_gravity = -20
+
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE and player_rect.bottom >= 300:
+                player_gravity = -20
+        if player_gravity == -20:
+            mixer.music.load('jump.mp3')
+            mixer.music.play()
+        if fly_rect.left <= 80:
+            mixer.music.load('croworraven1-6749.mp3')
+            mixer.music.play()
+    else:
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+            game_active = True
+            start_time = int(pygame.time.get_ticks() / 1000)
+            player_rect.left = 50
+            snail_rect.left = 800
+            fly_rect.left = 1500
+            snail_rect_an.left = 1200
+    #if event.type == obstacle_timer and game_active:
+        #obstacle_rect_list.append(snail_surf.get_rect(bottomright = (randint(900,1100), 300)))
+
+    if game_active:
+        x = 3
+        screen.blit(sky_surf, (0, 0))
+        screen.blit(ground_surf, (0, 300))
+        score = display_score()
+        snail_rect.x -= x
+        fly_rect.x -= y
+        snail_rect_an.x -= x
+        if snail_rect.right <= 0:
+            snail_rect.left = 800
+            x += 3
+            if x > 7 :
+                x = 5
+        if snail_rect_an.right <= 0:
+            snail_rect_an.left = 800
+            x += 3
+            if x > 7 :
+                x = 5
+        if fly_rect.right <= 0:
+            fly_rect.left = 800
+            y += 3
+            if y > 7:
+                y = 5
+
+        screen.blit(player_surf, player_rect)
+        # Player
+        player_gravity += 1
+        player_rect.y += player_gravity
+        if player_rect.bottom >= 300: player_rect.bottom = 300
+        screen.blit(snail_surf, snail_rect)
+        screen.blit(snail_surf_an, snail_rect_an)
+        screen.blit(fly_surf,fly_rect)
+        player_rect.x += 3
+        if player_rect.x >= 800:
+            player_rect.left = 60
+
+        # Obstacle Movement
+
+        #obstacle_rect_list = obstacle_movement(obstacle_rect_list)
+
+        # Collision
+        if snail_rect.x != 600 or player_rect.x != 60:
+            if snail_rect.colliderect(player_rect):
+                game_active = False
+        if snail_rect.x != 600 or player_rect.x != 60:
+            if fly_rect.colliderect(player_rect):
+                game_active = False
+        if snail_rect_an.x != 600 or player_rect.x != 50:
+            if snail_rect_an.colliderect(player_rect):
+                game_active = False
+
+    else:
+        screen.fill((94, 129, 162))
+        screen.blit(player_stand_scaled,player_stand_rect)
+        score_message = test_font.render(f'Your Score: {score}', False, (111,196,169))
+        score_message_rect = score_message.get_rect(center = (400,350))
+
+        if score == 0:
+            screen.blit(game_how,game_how_rect)
+        else:
+            screen.blit(score_message,score_message_rect)
+
+        screen.blit(game_name,game_name_rect)
+
+    pygame.display.update()
+    clock.tick(60)
