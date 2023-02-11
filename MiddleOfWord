@@ -1,0 +1,8 @@
+s = input("")
+x = input("")
+listofx = list(x)
+positio = listofx[0]
+character = listofx[2]
+lists = list(s)
+lists[int(positio)] = character
+str = "".join(lists)
