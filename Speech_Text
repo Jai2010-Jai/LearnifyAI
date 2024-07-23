@@ -1,0 +1,79 @@
+import os
+from google.oauth2 import service_account
+from google.cloud import speech_v1p1beta1 as speech
+from google.cloud import language_v1
+import ollama
+import json
+
+# Set the environment variable for the credentials
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/kothinti/Downloads/Speech To Text/fiery-booth-426205-m8-13d7ec179642.json"
+
+# Define the project ID
+project_id = "fiery-booth-426205-m8"
+
+# Path to your service account key file
+client_file = '/Users/kothinti/Downloads/fiery-booth-426205-m8-ba8530663a2c.json'
+
+# Load the credentials
+credentials = service_account.Credentials.from_service_account_file(client_file)
+
+# Initialize the clients with the credentials
+speech_client = speech.SpeechClient(credentials=credentials)
+language_client = language_v1.LanguageServiceClient(credentials=credentials)
+
+# Define the audio file URI
+audio_uri = 'gs://learnifyedu/Converting Decimals to Percents.wav'
+
+# Configure the recognition settings
+config = speech.RecognitionConfig(
+    encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
+    sample_rate_hertz=48000,
+    language_code='en-US',
+)
+
+audio = speech.RecognitionAudio(uri=audio_uri)
+
+# Perform LongRunningRecognize
+operation = speech_client.long_running_recognize(request={"config": config, "audio": audio})
+
+print("Waiting for operation to complete...")
+response = operation.result()
+
+# Extract the transcript
+transcript = ""
+for result in response.results:
+    for alternative in result.alternatives:
+        transcript += alternative.transcript + " "
+
+# Print the transcription
+print("Transcript:", transcript)
+
+# Analyze the transcript
+document = language_v1.Document(content=transcript, type_=language_v1.Document.Type.PLAIN_TEXT)
+
+# Detect the sentiment of the text
+sentiment = language_client.analyze_sentiment(request={'document': document}).document_sentiment
+
+print(f"Text: {transcript}")
+print(f"Sentiment: {sentiment.score}, {sentiment.magnitude}")
+
+# Function to generate questions
+def generate_questions(transcript, num_questions=10):
+    prompt = f"Generate {num_questions} questions based on the following transcript (Not MCQ's, Give me Medium answer questions. only give question, Nothing else! Only, Dont even write Here are some medium-level answer questions based on the transcript, Give me only the questions!):\n\n{transcript}\n\nQuestions:"
+    response = ollama.chat(model="llama3", messages=[{'role': 'user', 'content': prompt}], stream=False)
+    answer = response['message']['content']
+    return answer
+
+# Generate questions from the transcript
+questions = generate_questions(transcript, 1)
+
+if questions:
+    print("Generated Questions:")
+    print(questions)
+
+
+    # Write questions to a file in JSON format
+    with open("questions.json", "w") as file:
+        json.dump({"questions": questions}, file)
+else:
+    print("Failed to generate questions.")
