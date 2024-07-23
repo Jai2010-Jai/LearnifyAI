@@ -1,0 +1,14 @@
+{
+  "type": "service_account",
+  "project_id": "fiery-booth-426205-m8",
+  "private_key_id": "13d7ec1796420301ffb28846305d35acac9840c9",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDOcRQHaL5hBbGn\nYqnXb8lrGs8wUxh8zKIQ+dFhhz3lkkf28lh2TfkFsQgfeqHEyS93csHUEWRsUxrH\nyC1z6XqQSOw1OpGRMzHFX+B+LgtifVTRPAMsDbTQN8OEZN71Kq1pzUmSBHh6WZzA\nerAbQKBOFaZzZfVxsn3LCSQApibPCrcNVK5R353PW4g7t5jhjAOKgBAdjg+eqozI\ntVPpKlOx2g6lWZXDiM7HjSvj1nau/L9qvC7m73B75JMsabaFq4tzChbivIMxyWWR\nFdh1WFx8/KJ02eZdSMqadq8zEb3gFAjxsrQb3H41+EEV7+V4/nDflbXJhYwBxgi1\ntNa23xU7AgMBAAECggEARb+52yj+DazNUbcJmELqJBhKQVMJ9nxzE1Y8cn2toYdz\nbhGCZvJAPTaLfotB5cltkqeAqoR30AuiBDbzeHK9mMsyl2di8FKCMeQLZsZqzUt4\nITtr/PHikekNU4l7NQ1GyvTzsvR0ui3VwsiRAJwsrUUuWFXuAAyk6Lj9Y4S/nvqt\njrpCKTpMNqcFIPYBAzQibaSMwtHDBmuMpRGCPNpjSeBhxJsrTc3zioHutvMnU0Tl\nk0mVEL3AGGH+vFKRmdnFPEbUPl4Vp8dd0qNokfytlCGhMurkXzFxkwSRXI/iA6I2\nDUAJb1A89vdngB3z4cam4d+rmpkC5xp49csPVEu0AQKBgQD3KM3f2Uch6hDCdVSi\nxwFr+uOUeiu01iaIHAHQ8fo+PBMnN6zk/awcVLEP+wskzmgwiTH7G0XJQWetDXyL\nuXUN+01bneS5Wgmi73+Hyf8RqmycAxwWNsyC9hyH2POmxm/VleHPtrfMwqQxu6N3\nzRPec4p4C65GFV27FSSAoFGUAQKBgQDV023mC4rgdT3HrVHbP+9uAX33scK4qQze\n5uNrNtChcYDGtaa50HSKoCnrxMsV3knfbvg2I4g1MLenKLuaoISKZ4ttZ+ez2rtO\n1NYmPuY24BlDCZa+VsG7ehTuRvx66n24zTouLqJ/BFhxMQTSiXlphGo2k31pW6o7\nWG54px35OwKBgQCNvn/7Pa+2unbsHr/wLnMZSyRTVZFVP2+PpYhBHVUndeqCFkL4\nfKbFBKkbAh1M+Xb1Ruk8GlL2baUYsOBZfX2tDA88WJwA1KssH3AjHuxCZFuvSXVF\nJB47iQupuPlbDvi6JCABsMdODd5+ix7fqOQZMmgaGpDSrpQ3o5NwlQDUAQKBgQDG\nDQV31C0X5cAJWNG+wCNmwt8IM4/mNj6Dn1v5jFYFkvnyE4KQDTJEzEDH7gklAjVu\nTHx+uL6KdctFewb5G8Bn6axM87a68dgYFi8cUZouLbd4TkNfnT/oBBWq9fkZaGR2\nbTB8YhmEiGPaw8pxr3/TaiBu2IGKuqqcOTZpbnDmzQKBgB94HFGEp+KHSScoNpyz\nXTxxRk+XQRh5yt7VUGhTWUCBiIjozzeVGrmeelWIpIvUUc5b0KgP68iWNMYAKPVs\n8qmf2TbxYYQSv+08kZDpMpMqYg1OgQIyyuDPpu0aamGKiGe5rCeQShydsoRJu3ol\nx5XXZjApiCmdlCDE76mV1CNQ\n-----END PRIVATE KEY-----\n",
+  "client_email": "learnify-speech-text@fiery-booth-426205-m8.iam.gserviceaccount.com",
+  "client_id": "113558186468486502507",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/learnify-speech-text%40fiery-booth-426205-m8.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
+
